@@ -1,0 +1,34 @@
+spring:
+  application:
+    name: RAG-demo
+  datasource:
+    url: jdbc:postgresql://localhost:5432/vector_db
+    username: postgres_user
+    password: postgres_password
+  ai:
+    ollama:
+      base-url: http://localhost:11434
+      chat:
+        options:
+          model: llama3.1:8b
+#          model: llama3.2:3b
+          temperature: 0.1
+      embedding:
+        model: nomic-embed-text
+      init:
+        pull-model-strategy: when_missing
+    vectorstore:
+      pgvector:
+        initialize-schema: true
+        table-name: vector_store
+  main:
+    web-application-type: none
+  docker:
+    compose:
+      file: src/main/docker/compose.yml
+
+rag:
+#  system-prompt: "You are a spring framework expert assistant that answers questions based on the provided documents."
+#  document-path: "classpath:spring-framework.pdf"
+  system-prompt: "Tu es un expert du roman 'La fortune des Rougons' et tu répond aux questions en te basant sur les informations fournies"
+  document-path: "classpath:La_Fortune_des_Rougon.pdf"
